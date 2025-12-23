@@ -1,0 +1,56 @@
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark shadow-lg" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+      <i class="bi bi-brain me-2" style="font-size: 2rem; color: #A78BFA;"></i>
+      <span style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.5rem; background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NeuroAI</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link text-white fw-semibold px-3" href="{% url 'home' %}">
+            <i class="bi bi-house-fill me-1"></i>Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fw-semibold px-3" href="{% url 'about' %}">
+            <i class="bi bi-info-circle-fill me-1"></i>About Us
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fw-semibold px-3" href="{% url 'contact' %}">
+            <i class="bi bi-envelope-fill me-1"></i>Contact Us
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fw-semibold px-3" href="{% url 'login' %}">
+            <i class="bi bi-box-arrow-in-right me-1"></i>Log In
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-light ms-2 fw-semibold" href="{% url 'signup' %}" style="background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%); border: none; color: #1e1b4b;">
+            <i class="bi bi-person-plus-fill me-1"></i>Sign Up
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navbar .nav-link:hover {
+    color: #A78BFA !important;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+  .navbar .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(167, 139, 250, 0.4);
+    transition: all 0.3s ease;
+  }
+</style>
+{% endblock %}

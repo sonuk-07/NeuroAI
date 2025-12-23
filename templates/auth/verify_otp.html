@@ -1,0 +1,32 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+{% include 'common/navbar.html' %}
+<div class="form-container d-flex justify-content-center align-items-center min-vh-100 py-4">
+    <div class="form-box shadow bg-white rounded p-4" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">Verify OTP</h2>
+        {% if messages %}
+        <div class="alert-container mb-3">
+            {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="otp_code" class="form-label">OTP Code</label>
+                <input type="text" name="otp_code" class="form-control form-control-lg" id="otp_code" placeholder="Enter the OTP code" required>
+            </div>
+            <div class="text-center mb-3">
+                <button type="submit" class="btn btn-primary btn-lg">Verify OTP</button>
+            </div>
+        </form>
+        <div class="text-center mt-3">
+            <p><a href="{% url 'forgot_password' %}">Back to Forgot Password</a></p>
+        </div>
+    </div>
+</div>
+{% include 'common/footer.html' %}
+{% endblock %}

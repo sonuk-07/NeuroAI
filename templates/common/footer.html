@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="path/to/bootstrap.min.css">
+    <link rel="stylesheet" href="path/to/fontawesome.min.css">
+    <link rel="stylesheet" href="path/to/bootstrap-icons.css">
+    <title>NeuroAI - Brain Tumor Detection</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+        footer {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+        }
+        footer a {
+            transition: all 0.3s ease;
+        }
+        footer a:hover {
+            transform: translateY(-3px);
+            color: #A78BFA !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer class="py-4 text-white text-center">
+        <div class="container">
+            <div class="mb-3">
+                <i class="bi bi-brain" style="font-size: 2.5rem; color: #A78BFA;"></i>
+                <h5 class="mt-2 fw-bold" style="color: #C4B5FD;">NeuroAI</h5>
+                <p class="text-white-50 small">Advanced Brain Tumor Detection with AI</p>
+            </div>
+            <p class="mb-2">&copy; 2024 NeuroAI. All Rights Reserved.</p>
+            <p class="small text-white-50 mb-3">Empowering Healthcare with Artificial Intelligence</p>
+            <ul class="list-inline mt-3">
+                <li class="list-inline-item mx-2">
+                    <a href="#" class="text-white fs-4"><i class="bi bi-facebook"></i></a>
+                </li>
+                <li class="list-inline-item mx-2">
+                    <a href="#" class="text-white fs-4"><i class="bi bi-twitter"></i></a>
+                </li>
+                <li class="list-inline-item mx-2">
+                    <a href="#" class="text-white fs-4"><i class="bi bi-linkedin"></i></a>
+                </li>
+                <li class="list-inline-item mx-2">
+                    <a href="#" class="text-white fs-4"><i class="bi bi-instagram"></i></a>
+                </li>
+            </ul>
+            <div class="mt-3">
+                <a href="#" class="text-white-50 small mx-2 text-decoration-none">Privacy Policy</a> |
+                <a href="#" class="text-white-50 small mx-2 text-decoration-none">Terms of Service</a> |
+                <a href="#" class="text-white-50 small mx-2 text-decoration-none">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

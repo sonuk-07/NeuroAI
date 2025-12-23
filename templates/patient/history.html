@@ -1,0 +1,252 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'patient/patient_navbar.html' %}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        min-height: 100vh;
+    }
+
+    .history-container {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .table {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead {
+        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        color: white;
+    }
+
+    .table thead th {
+        border: none;
+        padding: 15px;
+        font-weight: 600;
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+        background-color: #F3F4F6;
+        transform: scale(1.01);
+    }
+
+    .history-image {
+        max-width: 120px;
+        height: auto;
+        max-height: 120px;
+        border-radius: 12px;
+        border: 3px solid #E0E7FF;
+        object-fit: cover;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-ask-doctor {
+        background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-ask-doctor:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-ask-doctor:disabled {
+        background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%);
+        cursor: not-allowed;
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+
+    .delete-all-btn {
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: white;
+        border: none;
+        padding: 12px 40px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+    .delete-all-btn:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+    }
+
+    .diagnosis-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .badge-positive {
+        background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+        color: #991B1B;
+    }
+
+    .badge-negative {
+        background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+        color: #065F46;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .empty-state i {
+        font-size: 5rem;
+        color: #D1D5DB;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container mt-4 mb-5">
+    <div class="history-container">
+        <div class="page-header">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-clock-history me-3" style="font-size: 2.5rem; color: #6366F1;"></i>
+                    <div>
+                        <h1 class="mb-1 fw-bold" style="color: #1e1b4b;">MRI Scan History</h1>
+                        <p class="text-muted mb-0">View your uploaded scans and diagnosis results</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><i class="bi bi-image me-2"></i>MRI Scan</th>
+                        <th><i class="bi bi-calendar-event me-2"></i>Uploaded At</th>
+                        <th><i class="bi bi-activity me-2"></i>Diagnosis</th>
+                        <th><i class="bi bi-chat-left-text me-2"></i>Doctor's Recommendation</th>
+                        <th><i class="bi bi-gear me-2"></i>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for image in uploaded_images %}
+                    <tr>
+                        <td>
+                            <img src="{{ image.image.url }}" alt="MRI Scan" class="history-image" />
+                        </td>
+                        <td>
+                            <i class="bi bi-clock me-1" style="color: #6366F1;"></i>
+                            {{ image.uploaded_at|date:"M d, Y" }}<br>
+                            <small class="text-muted">{{ image.uploaded_at|time:"h:i A" }}</small>
+                        </td>
+                        <td>
+                            <span class="diagnosis-badge {% if 'tumor' in image.disease_predict|lower or 'positive' in image.disease_predict|lower %}badge-positive{% else %}badge-negative{% endif %}">
+                                {{ image.disease_predict }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if image.doctor_comment %}
+                                <div class="p-2 rounded" style="background: #F3F4F6; border-left: 3px solid #6366F1;">
+                                    <i class="bi bi-check-circle-fill me-1" style="color: #10B981;"></i>
+                                    {{ image.doctor_comment|truncatewords:15 }}
+                                </div>
+                            {% else %}
+                                <span class="text-muted">
+                                    <i class="bi bi-hourglass-split me-1"></i>No recommendation yet
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column gap-2">
+                                {% if image.request_status == 'requested' %}
+                                    <button class="btn btn-ask-doctor btn-sm" disabled>
+                                        <i class="bi bi-check-circle me-1"></i>Requested
+                                    </button>
+                                {% else %}
+                                    <form method="POST" action="{% url 'request_recommendation' image.id %}" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-ask-doctor btn-sm">
+                                            <i class="bi bi-person-fill-add me-1"></i>Ask Doctor
+                                        </button>
+                                    </form>
+                                {% endif %}
+                                <form method="POST" action="{% url 'delete_image' image.id %}" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this scan?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash3 me-1"></i>Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">
+                            <div class="empty-state">
+                                <i class="bi bi-inbox"></i>
+                                <h5 class="text-muted">No MRI scans uploaded yet</h5>
+                                <p class="text-muted">Upload your first scan to get started with AI-powered diagnosis</p>
+                                <a href="{% url 'upload_image' %}" class="btn btn-ask-doctor mt-3">
+                                    <i class="bi bi-upload me-2"></i>Upload MRI Scan
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Delete All Button -->
+        {% if uploaded_images %}
+        <div class="text-center mt-4">
+            <form method="POST" action="{% url 'delete_all_images' %}" onsubmit="return confirm('Are you sure you want to delete all scans? This action cannot be undone.');">
+                {% csrf_token %}
+                <button type="submit" class="delete-all-btn">
+                    <i class="bi bi-trash3-fill me-2"></i>Delete All Scans
+                </button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'common/footer.html' %}
+{% endblock %}

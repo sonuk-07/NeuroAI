@@ -1,0 +1,204 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'patient/patient_navbar.html' %}
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <!-- Profile Information -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg border-0" style="height: 100%; border-radius: 16px; overflow: hidden;">
+                <div class="card-header text-white text-center" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); padding: 20px;">
+                    <i class="bi bi-person-circle mb-2" style="font-size: 3rem;"></i>
+                    <h4 class="mb-0 fw-bold">Profile Information</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="profile-info">
+                        <p class="mb-3">
+                            <strong><i class="bi bi-person-badge me-2" style="color: #6366F1;"></i>Name:</strong><br>
+                            <span class="text-muted">{{ user.first_name }} {{ user.last_name }}</span>
+                        </p>
+                        <p class="mb-3">
+                            <strong><i class="bi bi-calendar-check me-2" style="color: #6366F1;"></i>Date of Birth:</strong><br>
+                            <span class="text-muted">{{ user.patientprofile.dob }}</span>
+                        </p>
+                        <p class="mb-3">
+                            <strong><i class="bi bi-envelope-fill me-2" style="color: #6366F1;"></i>Email:</strong><br>
+                            <span class="text-muted">{{ user.email }}</span>
+                        </p>
+                        <p class="mb-3">
+                            <strong><i class="bi bi-telephone-fill me-2" style="color: #6366F1;"></i>Phone:</strong><br>
+                            <span class="text-muted">{{ user.patientprofile.phone_number }}</span>
+                        </p>
+                    </div>
+                    <a href="{% url 'settings' %}" class="btn w-100 fw-semibold mt-3" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); color: white; border: none; padding: 12px;">
+                        <i class="bi bi-gear-fill me-2"></i>Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload MRI Image for Detection -->
+        <div class="col-md-8 mb-4">
+            <div class="card shadow-lg border-0" style="height: 100%; border-radius: 16px; overflow: hidden;">
+                <div class="card-header text-white text-center" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); padding: 20px;">
+                    <i class="bi bi-cloud-upload-fill mb-2" style="font-size: 3rem;"></i>
+                    <h4 class="mb-0 fw-bold">Upload MRI Scan for Detection</h4>
+                    <p class="mb-0 small mt-2">Supported formats: JPG, PNG, DICOM</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" enctype="multipart/form-data" id="upload-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div id="drop-zone" class="drop-zone">
+                                <i class="bi bi-file-earmark-medical" style="font-size: 4rem; color: #A78BFA; margin-bottom: 15px;"></i>
+                                <p class="drop-zone-text mb-3">Drag & Drop your MRI scan here or click to upload</p>
+                                <input type="file" id="id_image" name="image" class="form-control-file large-file-input" accept="image/*" />
+                                <div id="file-preview" style="display: none; margin-top: 20px;">
+                                    <img id="preview-image" src="" alt="Preview" style="max-width: 100%; max-height: 200px; border-radius: 12px; border: 3px solid #E0E7FF;">
+                                </div>
+                                <input type="text" id="file-name-input" class="form-control mt-3" placeholder="No file selected" readonly style="border: 2px solid #E0E7FF; border-radius: 8px;" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn w-100 mt-4 fw-semibold" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); color: white; border: none; padding: 15px; font-size: 1.1rem;">
+                            <i class="bi bi-upload me-2"></i>Analyze MRI Scan
+                        </button>
+                    </form>
+                    
+                    {% if detection_result %}
+                    <div class="alert mt-4 p-4" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: 2px solid #A78BFA; border-radius: 12px;">
+                        <div class="text-center">
+                            <i class="bi bi-check-circle-fill" style="font-size: 3rem; color: #10B981;"></i>
+                            <h5 class="mt-3 fw-bold" style="color: #1e1b4b;">Brain Tumor Detection Result</h5>
+                            <div class="my-3">
+                                <img src="{{ detection_result.image.url }}" alt="Uploaded MRI Scan" class="img-fluid rounded shadow-lg" style="max-width: 200px; max-height: 200px; object-fit: cover; border: 3px solid #E0E7FF;">
+                            </div>
+                            <p class="mb-2"><strong style="color: #6366F1;">Diagnosis:</strong></p>
+                            <p class="fs-5 fw-bold" style="color: #4F46E5;">{{ detection_result.disease_predict }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS for Upload Area -->
+<style>
+    body {
+        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        color: #212529;
+        min-height: 100vh;
+    }
+
+    .drop-zone {
+        border: 3px dashed #A78BFA;
+        border-radius: 12px;
+        padding: 60px 30px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, rgba(167, 139, 250, 0.05) 0%, rgba(196, 181, 253, 0.05) 100%);
+        width: 100%;
+    }
+
+    .drop-zone:hover {
+        background: linear-gradient(135deg, rgba(167, 139, 250, 0.15) 0%, rgba(196, 181, 253, 0.15) 100%);
+        border-color: #6366F1;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+    }
+
+    .drop-zone.active {
+        background: linear-gradient(135deg, rgba(167, 139, 250, 0.2) 0%, rgba(196, 181, 253, 0.2) 100%);
+        border-color: #4F46E5;
+        border-width: 4px;
+    }
+
+    .drop-zone-text {
+        font-size: 1.2rem;
+        color: #6B7280;
+        font-weight: 500;
+    }
+
+    #id_image {
+        display: none;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .card {
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    #file-name-input {
+        background-color: white;
+    }
+</style>
+
+<script>
+    // Handle file drag and drop with preview
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('id_image');
+    const fileNameInput = document.getElementById('file-name-input');
+    const filePreview = document.getElementById('file-preview');
+    const previewImage = document.getElementById('preview-image');
+    
+    dropZone.addEventListener('click', () => fileInput.click());
+    
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files[0]) {
+            const fileName = fileInput.files[0].name;
+            fileNameInput.value = fileName;
+            
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                filePreview.style.display = 'block';
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        } else {
+            fileNameInput.value = '';
+            filePreview.style.display = 'none';
+        }
+    });
+    
+    dropZone.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (event) => {
+        event.preventDefault();
+        dropZone.classList.remove('active');
+        fileInput.files = event.dataTransfer.files;
+        
+        if (fileInput.files[0]) {
+            fileNameInput.value = fileInput.files[0].name;
+            
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                filePreview.style.display = 'block';
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    });
+</script>
+{% endblock %}

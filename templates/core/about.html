@@ -1,0 +1,72 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'common/navbar.html' %}
+
+<!-- About Section -->
+<section class="about py-5" id="about" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); min-height: 100vh;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <i class="bi bi-brain" style="font-size: 4rem; color: #C4B5FD;"></i>
+            <h2 class="display-4 text-white fw-bold mt-3">About NeuroAI</h2>
+            <div class="mx-auto" style="width: 80px; height: 4px; background: linear-gradient(90deg, #A78BFA, #C4B5FD);"></div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+                    <div class="card-body p-5">
+                        <p class="lead text-dark mb-4">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            NeuroAI is an advanced AI-powered platform dedicated to early detection of brain tumors using cutting-edge deep learning technology.
+                        </p>
+                        <p class="lead text-dark mb-4">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Our mission is to provide fast, accurate, and accessible brain tumor screening to help healthcare professionals make informed decisions and improve patient outcomes.
+                        </p>
+                        <p class="lead text-dark">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Built by a dedicated team of AI researchers, developers, and medical technology enthusiasts committed to revolutionizing neurological diagnostics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow border-0" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
+                    <div class="card-body text-center text-white p-4">
+                        <i class="bi bi-lightning-charge-fill" style="font-size: 3rem; color: #FCD34D;"></i>
+                        <h4 class="mt-3 fw-bold">Fast Detection</h4>
+                        <p>Results in seconds using advanced neural networks</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow border-0" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
+                    <div class="card-body text-center text-white p-4">
+                        <i class="bi bi-shield-check" style="font-size: 3rem; color: #34D399;"></i>
+                        <h4 class="mt-3 fw-bold">High Accuracy</h4>
+                        <p>Trained on thousands of MRI scans for precision</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow border-0" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
+                    <div class="card-body text-center text-white p-4">
+                        <i class="bi bi-heart-pulse-fill" style="font-size: 3rem; color: #F87171;"></i>
+                        <h4 class="mt-3 fw-bold">Early Detection</h4>
+                        <p>Identify tumors at early stages for better outcomes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% include 'common/footer.html' %}
+{% endblock %}

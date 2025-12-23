@@ -1,0 +1,142 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+{% include 'common/navbar.html' %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100 py-4">
+    <div class="signup-form shadow bg-white rounded p-4" style="max-width: 600px; width: 100%;">
+        <h2 class="text-center mb-4">Create an Account</h2>
+
+        <!-- Display alert messages -->
+        {% if messages %}
+        <div class="alert-container mb-4">
+            {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Signup Form -->
+        <form action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-6 mb-3">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control form-control-lg" id="first_name" name="first_name" placeholder="Enter the first name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control form-control-lg" id="last_name" name="last_name" placeholder="Enter the last name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Enter the username" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Enter the email" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6 mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Enter the password" required>
+                        <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('password')">
+                            <i class="fas fa-eye" id="eye-icon-password"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="confirm-password" class="form-label">Confirm Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control form-control-lg" id="confirm-password" name="confirm_password" placeholder="Confirm the password" required>
+                        <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('confirm-password')">
+                            <i class="fas fa-eye" id="eye-icon-confirm-password"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Selection Radio Buttons -->
+            <div class="mb-3">
+                <label class="form-check-label me-4">
+                    <input type="radio" class="form-check-input" name="role" value="doctor" required> Sign Up as Doctor
+                </label>
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="role" value="patient" required> Sign Up as Patient
+                </label>
+            </div>
+
+            <!-- Additional Fields for Doctor -->
+            <div id="doctor-fields" class="d-none mb-3">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="license_number" class="form-label">License Number</label>
+                        <input type="text" class="form-control form-control-lg" id="license_number" name="license_number" placeholder="Enter the license number">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control form-control-lg" id="doctor_phone_number" name="phone_number" placeholder="Enter the phone number">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Fields for Patient -->
+            <div id="patient-fields" class="d-none mb-3">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="dob" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control form-control-lg" id="dob" name="dob">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control form-control-lg" id="patient_phone_number" name="phone_number" placeholder="Enter the phone number">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center mb-3">
+                <button type="submit" class="btn btn-success btn-lg">Sign Up</button>
+            </div>
+        </form>
+
+        <div class="text-center">
+            <p>Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePasswordVisibility(fieldId) {
+    var field = document.getElementById(fieldId);
+    var eyeIcon = document.getElementById('eye-icon-' + fieldId);
+    if (field.type === "password") {
+        field.type = "text";
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+    } else {
+        field.type = "password";
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+    }
+}
+
+document.querySelectorAll('input[name="role"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+        var role = this.value;
+        var doctorFields = document.getElementById('doctor-fields');
+        var patientFields = document.getElementById('patient-fields');
+        if (role === 'doctor') {
+            doctorFields.classList.remove('d-none');
+            patientFields.classList.add('d-none');
+        } else if (role === 'patient') {
+            patientFields.classList.remove('d-none');
+            doctorFields.classList.add('d-none');
+        }
+    });
+});
+</script>
+{% include 'common/footer.html' %}
+{% endblock %}
