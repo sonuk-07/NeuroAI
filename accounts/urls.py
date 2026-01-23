@@ -9,7 +9,7 @@ urlpatterns = [
     path('contact/', views.contact_view, name='contact'),
     path('signup/', views.signup, name='signup'),  # Signup page
     path('login/', views.user_login, name='login'),  # Login page
-    path('logout/', LogoutView.as_view(), name='logout'),# Logout page
+    path('logout/', LogoutView.as_view(next_page='home'), name='logout'),# Logout page
 
     path('forgot_password/', views.forgot_password, name='forgot_password'),
     path('verify_otp/', views.verify_otp, name='verify_otp'),
