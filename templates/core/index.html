@@ -24,7 +24,7 @@
             Upload your MRI scan for instant AI analysis. Early detection saves lives.
         </p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="{% url 'home' %}" class="btn btn-lg px-5 py-3 fw-bold" style="background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%); border: none; color: #1e1b4b; box-shadow: 0 10px 30px rgba(167, 139, 250, 0.4);">
+            <a href="{% url 'login' %}" class="btn btn-lg px-5 py-3 fw-bold" style="background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%); border: none; color: #1e1b4b; box-shadow: 0 10px 30px rgba(167, 139, 250, 0.4);">
                 <i class="bi bi-upload me-2"></i>Upload MRI Scan
             </a>
             <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg px-5 py-3 fw-bold" style="border: 2px solid #C4B5FD;">
@@ -67,51 +67,17 @@
         
         <div class="row g-4">
             <!-- Service 1: Brain Tumor Detection -->
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-6 col-md-6 mx-auto">
                 <div class="card h-100 shadow-lg border-0 position-relative overflow-hidden" style="transition: transform 0.3s ease;">
                     <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); opacity: 0.05;"></div>
                     <div class="card-body text-center p-5 position-relative">
                         <div class="mb-4 p-4 rounded-circle mx-auto d-inline-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); width: 100px; height: 100px;">
                             <i class="bi bi-brain text-white" style="font-size: 3rem;"></i>
                         </div>
-                        <h4 class="card-title fw-bold mb-3" style="color: #4F46E5;">Tumor Detection</h4>
-                        <p class="card-text text-muted mb-4">Upload MRI scans and get instant AI-powered tumor detection with detailed analysis.</p>
-                        <a href="{% url 'home' %}" class="btn btn-lg w-100 fw-semibold" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); color: white; border: none;">
-                            <i class="bi bi-upload me-2"></i>Upload MRI
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Service 2: AI Health Assistant -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 shadow-lg border-0 position-relative overflow-hidden" style="transition: transform 0.3s ease;">
-                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); opacity: 0.05;"></div>
-                    <div class="card-body text-center p-5 position-relative">
-                        <div class="mb-4 p-4 rounded-circle mx-auto d-inline-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); width: 100px; height: 100px;">
-                            <i class="bi bi-chat-dots-fill text-white" style="font-size: 3rem;"></i>
-                        </div>
-                        <h4 class="card-title fw-bold mb-3" style="color: #059669;">AI Health Assistant</h4>
-                        <p class="card-text text-muted mb-4">Chat with our AI assistant for symptom assessment and health recommendations.</p>
-                        <a href="{% url 'home' %}" class="btn btn-lg w-100 fw-semibold" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; border: none;">
-                            <i class="bi bi-chat-heart me-2"></i>Start Chat
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Service 3: Expert Consultation -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 shadow-lg border-0 position-relative overflow-hidden" style="transition: transform 0.3s ease;">
-                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); opacity: 0.05;"></div>
-                    <div class="card-body text-center p-5 position-relative">
-                        <div class="mb-4 p-4 rounded-circle mx-auto d-inline-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); width: 100px; height: 100px;">
-                            <i class="bi bi-person-lines-fill text-white" style="font-size: 3rem;"></i>
-                        </div>
-                        <h4 class="card-title fw-bold mb-3" style="color: #D97706;">Expert Consultation</h4>
-                        <p class="card-text text-muted mb-4">Connect with neurologists and specialists for professional medical advice.</p>
-                        <a href="{% url 'home' %}" class="btn btn-lg w-100 fw-semibold" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; border: none;">
-                            <i class="bi bi-calendar-check me-2"></i>Book Appointment
+                        <h4 class="card-title fw-bold mb-3" style="color: #4F46E5;">Brain Tumor Detection</h4>
+                        <p class="card-text text-muted mb-4">Upload MRI scans and get instant AI-powered tumor detection with detailed analysis from expert neurologists.</p>
+                        <a href="{% url 'login' %}" class="btn btn-lg w-100 fw-semibold" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); color: white; border: none;">
+                            <i class="bi bi-upload me-2"></i>Upload MRI Scan
                         </a>
                     </div>
                 </div>
