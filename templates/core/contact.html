@@ -5,21 +5,21 @@
 {% include 'common/navbar.html' %}
 
 <!-- Contact Section -->
-<section class="contact py-5" id="contact" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); min-height: 100vh;">
+<section class="contact py-5" id="contact" style="background-color: var(--light-bg); min-height: 100vh;">
     <div class="container">
         <div class="text-center mb-5">
-            <i class="bi bi-envelope-fill" style="font-size: 4rem; color: #C4B5FD;"></i>
-            <h2 class="display-4 text-white fw-bold mt-3">Get In Touch</h2>
-            <p class="text-white lead">Have questions? We'd love to hear from you.</p>
-            <div class="mx-auto" style="width: 80px; height: 4px; background: linear-gradient(90deg, #A78BFA, #C4B5FD);"></div>
+            <i class="bi bi-envelope-fill" style="font-size: 4rem; color: var(--accent-sky);"></i>
+            <h2 class="display-4 fw-bold mt-3" style="color: var(--primary-blue);">Get In Touch</h2>
+            <p class="lead" style="color: var(--gray-600);">Have questions? We'd love to hear from you.</p>
+            <div class="mx-auto" style="width: 80px; height: 4px; background-color: var(--primary-teal);"></div>
         </div>
 
         <div class="row justify-content-center">
             <!-- Contact Form -->
             <div class="col-lg-6 mb-4">
-                <div class="card shadow-lg border-0" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+                <div class="card" style="background-color: var(--white);">
                     <div class="card-body p-5">
-                        <h3 class="mb-4 fw-bold" style="color: #4F46E5;">
+                        <h3 class="mb-4 fw-bold" style="color: var(--primary-blue);">
                             <i class="bi bi-chat-dots-fill me-2"></i>Send Us a Message
                         </h3>
                         <form method="POST" novalidate>
@@ -41,7 +41,7 @@
                                 {{ form.message }}
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-lg px-5 py-3 text-white fw-bold" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); border: none;">
+                                <button type="submit" class="btn btn-primary btn-lg px-5 py-3 fw-bold">
                                     <i class="bi bi-send-fill me-2"></i>Send Message
                                 </button>
                             </div>
@@ -52,38 +52,38 @@
 
             <!-- Contact Information -->
             <div class="col-lg-6 mb-4">
-                <div class="card shadow-lg border-0 h-100" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+                <div class="card h-100" style="background-color: var(--white);">
                     <div class="card-body p-5">
-                        <h3 class="mb-4 fw-bold" style="color: #4F46E5;">
+                        <h3 class="mb-4 fw-bold" style="color: var(--primary-blue);">
                             <i class="bi bi-info-circle-fill me-2"></i>Contact Information
                         </h3>
                         <div class="contact-info">
-                            <div class="d-flex align-items-start mb-4 p-3 rounded" style="background: rgba(99, 102, 241, 0.1);">
-                                <i class="bi bi-geo-alt-fill me-3 mt-1" style="font-size: 1.5rem; color: #6366F1;"></i>
+                            <div class="d-flex align-items-start mb-4 p-3 rounded" style="background-color: var(--light-bg);">
+                                <i class="bi bi-geo-alt-fill me-3 mt-1" style="font-size: 1.5rem; color: var(--primary-blue);"></i>
                                 <div>
-                                    <h5 class="mb-1 fw-bold" style="color: #4F46E5;">Address</h5>
-                                    <p class="mb-0 text-dark">Tribhuvan University Teaching Hospital<br>Maharajgunj, Kathmandu, Nepal</p>
+                                    <h5 class="mb-1 fw-bold" style="color: var(--primary-blue);">Address</h5>
+                                    <p class="mb-0" style="color: var(--gray-700);">Tribhuvan University Teaching Hospital<br>Maharajgunj, Kathmandu, Nepal</p>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-start mb-4 p-3 rounded" style="background: rgba(99, 102, 241, 0.1);">
-                                <i class="bi bi-telephone-fill me-3 mt-1" style="font-size: 1.5rem; color: #6366F1;"></i>
+                            <div class="d-flex align-items-start mb-4 p-3 rounded" style="background-color: var(--light-bg);">
+                                <i class="bi bi-telephone-fill me-3 mt-1" style="font-size: 1.5rem; color: var(--primary-blue);"></i>
                                 <div>
-                                    <h5 class="mb-1 fw-bold" style="color: #4F46E5;">Phone</h5>
-                                    <p class="mb-0 text-dark">+977 9800000000</p>
+                                    <h5 class="mb-1 fw-bold" style="color: var(--primary-blue);">Phone</h5>
+                                    <p class="mb-0" style="color: var(--gray-700);">+977 9800000000</p>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-start mb-4 p-3 rounded" style="background: rgba(99, 102, 241, 0.1);">
-                                <i class="bi bi-envelope-fill me-3 mt-1" style="font-size: 1.5rem; color: #6366F1;"></i>
+                            <div class="d-flex align-items-start mb-4 p-3 rounded" style="background-color: var(--light-bg);">
+                                <i class="bi bi-envelope-fill me-3 mt-1" style="font-size: 1.5rem; color: var(--primary-blue);"></i>
                                 <div>
-                                    <h5 class="mb-1 fw-bold" style="color: #4F46E5;">Email</h5>
-                                    <p class="mb-0 text-dark">contact@neuroai.com</p>
+                                    <h5 class="mb-1 fw-bold" style="color: var(--primary-blue);">Email</h5>
+                                    <p class="mb-0" style="color: var(--gray-700);">contact@neuroai.com</p>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-start p-3 rounded" style="background: rgba(99, 102, 241, 0.1);">
-                                <i class="bi bi-clock-fill me-3 mt-1" style="font-size: 1.5rem; color: #6366F1;"></i>
+                            <div class="d-flex align-items-start p-3 rounded" style="background-color: var(--light-bg);">
+                                <i class="bi bi-clock-fill me-3 mt-1" style="font-size: 1.5rem; color: var(--primary-blue);"></i>
                                 <div>
-                                    <h5 class="mb-1 fw-bold" style="color: #4F46E5;">Support Hours</h5>
-                                    <p class="mb-0 text-dark">Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 10:00 AM - 2:00 PM</p>
+                                    <h5 class="mb-1 fw-bold" style="color: var(--primary-blue);">Support Hours</h5>
+                                    <p class="mb-0" style="color: var(--gray-700);">Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 10:00 AM - 2:00 PM</p>
                                 </div>
                             </div>
                         </div>
@@ -94,21 +94,21 @@
 
         <!-- Quick Links -->
         <div class="text-center mt-5">
-            <div class="card shadow-lg border-0" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
+            <div class="card" style="background-color: var(--white);">
                 <div class="card-body p-4">
-                    <h4 class="text-white fw-bold mb-3">Follow Us</h4>
+                    <h4 class="fw-bold mb-3" style="color: var(--primary-blue);">Follow Us</h4>
                     <div class="d-flex justify-content-center gap-3">
-                        <a href="#" class="btn btn-light rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-                            <i class="bi bi-facebook" style="font-size: 1.5rem; color: #4F46E5;"></i>
+                        <a href="#" class="btn btn-outline rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
                         </a>
-                        <a href="#" class="btn btn-light rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-                            <i class="bi bi-twitter" style="font-size: 1.5rem; color: #4F46E5;"></i>
+                        <a href="#" class="btn btn-outline rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-twitter" style="font-size: 1.5rem;"></i>
                         </a>
-                        <a href="#" class="btn btn-light rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-                            <i class="bi bi-linkedin" style="font-size: 1.5rem; color: #4F46E5;"></i>
+                        <a href="#" class="btn btn-outline rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
                         </a>
-                        <a href="#" class="btn btn-light rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-                            <i class="bi bi-instagram" style="font-size: 1.5rem; color: #4F46E5;"></i>
+                        <a href="#" class="btn btn-outline rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-instagram" style="font-size: 1.5rem;"></i>
                         </a>
                     </div>
                 </div>
@@ -118,19 +118,10 @@
 </section>
 
 <style>
-    .form-control, .form-select {
-        border: 2px solid #E0E7FF;
-        padding: 12px;
-        border-radius: 8px;
-    }
-    .form-control:focus, .form-select:focus {
-        border-color: #6366F1;
-        box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
-    }
     .btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition-fast);
     }
 </style>
 

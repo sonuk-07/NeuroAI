@@ -1,11 +1,10 @@
 {% load static %}
-{% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark shadow-lg" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);">
+<nav class="navbar navbar-expand-lg sticky-top">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="{% url 'upload_image' %}">
-      <i class="bi bi-brain me-2" style="font-size: 2rem; color: #A78BFA;"></i>
-      <span style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.5rem; background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NeuroAI</span>
-      <span class="badge ms-2" style="background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%); font-size: 0.7rem;">Patient</span>
+      <i class="bi bi-brain me-2" style="font-size: 2rem; color: var(--accent-sky);"></i>
+      <span style="font-weight: 700; font-size: 1.5rem; color: var(--primary-blue);">NeuroAI</span>
+      <span class="badge ms-2">Patient</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,25 +12,24 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto align-items-center">
         <li class="nav-item">
-          <a class="nav-link text-white fw-semibold px-3 d-flex align-items-center" href="{% url 'upload_image' %}">
-            <i class="bi bi-person-circle me-2" style="font-size: 1.2rem;"></i>
-            Hi, {{ user.first_name }}
+          <a class="nav-link" href="{% url 'upload_image' %}">
+            <i class="bi bi-person-circle me-2"></i>Hi, {{ user.first_name }}
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white fw-semibold px-3" href="{% url 'history' %}">
+          <a class="nav-link" href="{% url 'history' %}">
             <i class="bi bi-clock-history me-1"></i>History
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white fw-semibold px-3" href="{% url 'settings' %}">
+          <a class="nav-link" href="{% url 'settings' %}">
             <i class="bi bi-gear-fill me-1"></i>Settings
           </a>
         </li>
         <li class="nav-item">
           <form method="post" action="{% url 'logout' %}" class="d-inline">
             {% csrf_token %}
-            <button type="submit" class="btn btn-outline-light ms-2 fw-semibold" style="border: 2px solid #C4B5FD; color: #C4B5FD;">
+            <button type="submit" class="btn btn-sm btn-outline" style="margin-left: 0.5rem;">
               <i class="bi bi-box-arrow-right me-1"></i>Log Out
             </button>
           </form>
@@ -40,20 +38,3 @@
     </div>
   </div>
 </nav>
-
-<style>
-  .navbar .nav-link:hover {
-    color: #A78BFA !important;
-    transform: translateY(-2px);
-    transition: all 0.3s ease;
-  }
-  .navbar .btn:hover {
-    background: #C4B5FD;
-    color: #1e1b4b !important;
-    border-color: #C4B5FD;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(196, 181, 253, 0.4);
-    transition: all 0.3s ease;
-  }
-</style>
-{% endblock %}

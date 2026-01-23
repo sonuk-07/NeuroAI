@@ -5,29 +5,22 @@
 {% include 'common/navbar.html' %}
 
 <!-- Hero Section -->
-<section class="hero d-flex align-items-center position-relative" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%); min-height: 100vh; margin: 0; padding: 0; overflow: hidden;">
-    <!-- Animated Background Elements -->
-    <div class="position-absolute w-100 h-100" style="opacity: 0.1;">
-        <div class="position-absolute rounded-circle" style="width: 300px; height: 300px; background: #A78BFA; top: 10%; left: 5%; animation: float 6s ease-in-out infinite;"></div>
-        <div class="position-absolute rounded-circle" style="width: 200px; height: 200px; background: #C4B5FD; bottom: 20%; right: 10%; animation: float 8s ease-in-out infinite;"></div>
-        <div class="position-absolute rounded-circle" style="width: 150px; height: 150px; background: #DDD6FE; top: 50%; right: 20%; animation: float 7s ease-in-out infinite;"></div>
-    </div>
-    
-    <div class="container text-center text-white position-relative" style="z-index: 2;">
+<section class="hero d-flex align-items-center position-relative" style="background-color: var(--light-bg); min-height: 100vh; margin: 0; padding: 0; overflow: hidden;">
+    <div class="container text-center position-relative">
         <div class="mb-4">
-            <i class="bi bi-brain" style="font-size: 5rem; color: #C4B5FD; animation: pulse 2s ease-in-out infinite;"></i>
+            <i class="bi bi-brain" style="font-size: 5rem; color: var(--accent-sky);"></i>
         </div>
-        <h1 class="display-2 fw-bold mb-4" style="text-shadow: 2px 2px 20px rgba(0,0,0,0.3);">
+        <h1 class="display-2 fw-bold mb-4" style="color: var(--primary-blue);">
             AI-Powered Brain Tumor Detection
         </h1>
-        <p class="lead mb-5" style="font-size: 1.5rem; max-width: 800px; margin: 0 auto;">
+        <p class="lead mb-5" style="font-size: 1.5rem; max-width: 800px; margin: 0 auto; color: var(--gray-600);">
             Upload your MRI scan for instant AI analysis. Early detection saves lives.
         </p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="{% url 'login' %}" class="btn btn-lg px-5 py-3 fw-bold" style="background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%); border: none; color: #1e1b4b; box-shadow: 0 10px 30px rgba(167, 139, 250, 0.4);">
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-5 py-3 fw-bold">
                 <i class="bi bi-upload me-2"></i>Upload MRI Scan
             </a>
-            <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg px-5 py-3 fw-bold" style="border: 2px solid #C4B5FD;">
+            <a href="{% url 'about' %}" class="btn btn-outline btn-lg px-5 py-3 fw-bold">
                 <i class="bi bi-info-circle me-2"></i>Learn More
             </a>
         </div>
@@ -35,21 +28,21 @@
         <!-- Stats Section -->
         <div class="row mt-5 pt-5">
             <div class="col-md-4 mb-3">
-                <div class="p-4 rounded" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
-                    <h2 class="fw-bold" style="color: #A78BFA;">95%+</h2>
-                    <p class="mb-0">Accuracy Rate</p>
+                <div class="p-4 rounded" style="background-color: var(--white); border: 1px solid var(--gray-200);">
+                    <h2 class="fw-bold" style="color: var(--primary-blue);">95%+</h2>
+                    <p class="mb-0" style="color: var(--gray-600);">Accuracy Rate</p>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <div class="p-4 rounded" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
-                    <h2 class="fw-bold" style="color: #A78BFA;">3 Sec</h2>
-                    <p class="mb-0">Analysis Time</p>
+                <div class="p-4 rounded" style="background-color: var(--white); border: 1px solid var(--gray-200);">
+                    <h2 class="fw-bold" style="color: var(--primary-blue);">3 Sec</h2>
+                    <p class="mb-0" style="color: var(--gray-600);">Analysis Time</p>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <div class="p-4 rounded" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
-                    <h2 class="fw-bold" style="color: #A78BFA;">10K+</h2>
-                    <p class="mb-0">Scans Analyzed</p>
+                <div class="p-4 rounded" style="background-color: var(--white); border: 1px solid var(--gray-200);">
+                    <h2 class="fw-bold" style="color: var(--primary-blue);">10K+</h2>
+                    <p class="mb-0" style="color: var(--gray-600);">Scans Analyzed</p>
                 </div>
             </div>
         </div>
@@ -57,26 +50,25 @@
 </section>
 
 <!-- Feature Services -->
-<section class="features py-5" id="services" style="background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);">
+<section class="features py-5" id="services" style="background-color: var(--white);">
     <div class="container">
         <div class="text-center mb-5">
-            <i class="bi bi-stars" style="font-size: 3rem; color: #6366F1;"></i>
-            <h2 class="display-4 fw-bold mt-3" style="color: #1e1b4b;">Our AI-Powered Services</h2>
-            <p class="lead text-muted">Comprehensive brain health analysis at your fingertips</p>
+            <i class="bi bi-stars" style="font-size: 3rem; color: var(--primary-blue);"></i>
+            <h2 class="display-4 fw-bold mt-3" style="color: var(--primary-blue);">Our AI-Powered Services</h2>
+            <p class="lead" style="color: var(--gray-600);">Comprehensive brain health analysis at your fingertips</p>
         </div>
         
         <div class="row g-4">
             <!-- Service 1: Brain Tumor Detection -->
             <div class="col-lg-6 col-md-6 mx-auto">
-                <div class="card h-100 shadow-lg border-0 position-relative overflow-hidden" style="transition: transform 0.3s ease;">
-                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); opacity: 0.05;"></div>
-                    <div class="card-body text-center p-5 position-relative">
-                        <div class="mb-4 p-4 rounded-circle mx-auto d-inline-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); width: 100px; height: 100px;">
-                            <i class="bi bi-brain text-white" style="font-size: 3rem;"></i>
+                <div class="card h-100" style="transition: transform 0.3s ease; border-color: var(--gray-200);">
+                    <div class="card-body text-center p-5">
+                        <div class="mb-4 p-4 rounded-circle mx-auto d-inline-flex align-items-center justify-content-center" style="background-color: var(--light-bg); width: 100px; height: 100px;">
+                            <i class="bi bi-brain text-primary" style="font-size: 3rem; color: var(--primary-blue);"></i>
                         </div>
-                        <h4 class="card-title fw-bold mb-3" style="color: #4F46E5;">Brain Tumor Detection</h4>
-                        <p class="card-text text-muted mb-4">Upload MRI scans and get instant AI-powered tumor detection with detailed analysis from expert neurologists.</p>
-                        <a href="{% url 'login' %}" class="btn btn-lg w-100 fw-semibold" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); color: white; border: none;">
+                        <h4 class="card-title fw-bold mb-3" style="color: var(--primary-blue);">Brain Tumor Detection</h4>
+                        <p class="card-text" style="color: var(--gray-600); margin-bottom: 1.5rem;">Upload MRI scans and get instant AI-powered tumor detection with detailed analysis from expert neurologists.</p>
+                        <a href="{% url 'login' %}" class="btn btn-primary w-100 fw-semibold">
                             <i class="bi bi-upload me-2"></i>Upload MRI Scan
                         </a>
                     </div>
@@ -87,39 +79,39 @@
 </section>
 
 <!-- How It Works Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);">
+<section class="py-5" style="background-color: var(--light-bg);">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-4 fw-bold text-white">How NeuroAI Works</h2>
-            <p class="lead text-white">Simple, fast, and accurate brain tumor detection in 3 steps</p>
+            <h2 class="display-4 fw-bold" style="color: var(--primary-blue);">How NeuroAI Works</h2>
+            <p class="lead" style="color: var(--gray-600);">Simple, fast, and accurate brain tumor detection in 3 steps</p>
         </div>
         
         <div class="row text-center">
             <div class="col-md-4 mb-4">
                 <div class="p-4">
-                    <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2);">
-                        <span class="fw-bold text-white" style="font-size: 2rem;">1</span>
+                    <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background-color: var(--accent-sky); color: var(--white);">
+                        <span class="fw-bold" style="font-size: 2rem;">1</span>
                     </div>
-                    <h4 class="text-white fw-bold mb-3">Upload MRI</h4>
-                    <p class="text-white">Upload your brain MRI scan in JPG, PNG, or DICOM format</p>
+                    <h4 class="fw-bold mb-3" style="color: var(--primary-blue);">Upload MRI</h4>
+                    <p style="color: var(--gray-600);">Upload your brain MRI scan in JPG, PNG, or DICOM format</p>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="p-4">
-                    <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2);">
-                        <span class="fw-bold text-white" style="font-size: 2rem;">2</span>
+                    <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background-color: var(--primary-teal); color: var(--white);">
+                        <span class="fw-bold" style="font-size: 2rem;">2</span>
                     </div>
-                    <h4 class="text-white fw-bold mb-3">AI Analysis</h4>
-                    <p class="text-white">Our advanced AI analyzes the scan in seconds</p>
+                    <h4 class="fw-bold mb-3" style="color: var(--primary-blue);">AI Analysis</h4>
+                    <p style="color: var(--gray-600);">Our advanced AI analyzes the scan in seconds</p>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="p-4">
-                    <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2);">
-                        <span class="fw-bold text-white" style="font-size: 2rem;">3</span>
+                    <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background-color: var(--accent-cyan); color: var(--white);">
+                        <span class="fw-bold" style="font-size: 2rem;">3</span>
                     </div>
-                    <h4 class="text-white fw-bold mb-3">Get Results</h4>
-                    <p class="text-white">Receive detailed analysis and recommendations instantly</p>
+                    <h4 class="fw-bold mb-3" style="color: var(--primary-blue);">Get Results</h4>
+                    <p style="color: var(--gray-600);">Receive detailed analysis and recommendations instantly</p>
                 </div>
             </div>
         </div>
@@ -127,24 +119,14 @@
 </section>
 
 <style>
-    @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-20px); }
-    }
-    
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-    }
-    
     .card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+        box-shadow: var(--shadow-lg);
     }
     
     .btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        box-shadow: var(--shadow-md);
     }
 </style>
 

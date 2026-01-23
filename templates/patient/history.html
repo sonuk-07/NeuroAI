@@ -6,7 +6,7 @@
 
 <style>
     body {
-        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        background: linear-gradient(135deg, #F0F9FF 0%, #F0FDF4 100%);
         min-height: 100vh;
     }
 
@@ -14,17 +14,17 @@
         background: white;
         border-radius: 16px;
         padding: 30px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     }
 
     .table {
         border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     }
 
     .table thead {
-        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        background: linear-gradient(135deg, #1E40AF 0%, #0D9488 100%);
         color: white;
     }
 
@@ -39,7 +39,7 @@
     }
 
     .table tbody tr:hover {
-        background-color: #F3F4F6;
+        background-color: #F0F9FF;
         transform: scale(1.01);
     }
 
@@ -48,9 +48,9 @@
         height: auto;
         max-height: 120px;
         border-radius: 12px;
-        border: 3px solid #E0E7FF;
+        border: 3px solid #BAE6FD;
         object-fit: cover;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .btn-ask-doctor {
@@ -145,7 +145,7 @@
         <div class="page-header">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
-                    <i class="bi bi-clock-history me-3" style="font-size: 2.5rem; color: #6366F1;"></i>
+                    <i class="bi bi-clock-history me-3" style="font-size: 2.5rem; color: #1E40AF;"></i>
                     <div>
                         <h1 class="mb-1 fw-bold" style="color: #1e1b4b;">MRI Scan History</h1>
                         <p class="text-muted mb-0">View your uploaded scans and diagnosis results</p>
@@ -172,7 +172,7 @@
                             <img src="{{ image.image.url }}" alt="MRI Scan" class="history-image" />
                         </td>
                         <td>
-                            <i class="bi bi-clock me-1" style="color: #6366F1;"></i>
+                            <i class="bi bi-clock me-1" style="color: #1E40AF;"></i>
                             {{ image.uploaded_at|date:"M d, Y" }}<br>
                             <small class="text-muted">{{ image.uploaded_at|time:"h:i A" }}</small>
                         </td>
@@ -183,7 +183,7 @@
                         </td>
                         <td>
                             {% if image.doctor_comment %}
-                                <div class="p-2 rounded" style="background: #F3F4F6; border-left: 3px solid #6366F1;">
+                                <div class="p-2 rounded" style="background: #F0F9FF; border-left: 3px solid #1E40AF;">
                                     <i class="bi bi-check-circle-fill me-1" style="color: #10B981;"></i>
                                     {{ image.doctor_comment|truncatewords:15 }}
                                 </div>

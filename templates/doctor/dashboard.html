@@ -2,147 +2,6 @@
 {% load static %}
 {% block content %}
 
-<style>
-    body {
-        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-        font-family: 'Inter', sans-serif;
-        min-height: 100vh;
-    }
-
-    .card {
-        border-radius: 16px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        margin-bottom: 25px;
-        border: none;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
-    }
-
-    .card-header {
-        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-        border-radius: 16px 16px 0 0 !important;
-        padding: 20px;
-        border: none;
-    }
-
-    .btn {
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        font-weight: 600;
-        padding: 10px 20px;
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-        border: none;
-    }
-
-    .btn-primary:hover {
-        background: linear-gradient(135deg, #5568D3 0%, #6B3FA0 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-    }
-
-    .btn-secondary {
-        background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
-        border: none;
-    }
-
-    .btn-secondary:hover {
-        background: linear-gradient(135deg, #5A6270 0%, #3A4150 100%);
-        transform: translateY(-2px);
-    }
-
-    h4 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: white;
-        margin: 0;
-    }
-
-    .list-group-item {
-        border: none;
-        padding: 20px;
-        background-color: #ffffff;
-        margin-bottom: 15px;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-    }
-
-    .list-group-item:hover {
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-        transform: translateX(5px);
-    }
-
-    .list-group-item img {
-        margin-right: 20px;
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 12px;
-        border: 3px solid #E0E7FF;
-    }
-
-    .notification-message {
-        margin-bottom: 8px;
-        color: #374151;
-        font-size: 1rem;
-    }
-
-    .notification-prediction {
-        color: #6366F1;
-        font-weight: bold;
-        font-size: 1.1rem;
-    }
-
-    .respond-form {
-        display: none;
-        margin-top: 15px;
-        padding: 20px;
-        background: #F9FAFB;
-        border-radius: 12px;
-        border: 2px solid #E0E7FF;
-    }
-
-    .profile-icon {
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-    }
-
-    .badge-neurologist {
-        background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        display: inline-block;
-        margin-top: 10px;
-    }
-
-    .form-control {
-        border: 2px solid #E0E7FF;
-        border-radius: 8px;
-        padding: 12px;
-    }
-
-    .form-control:focus {
-        border-color: #6366F1;
-        box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
-    }
-</style>
-
 {% include 'doctor/doctor_navbar.html' %}
 
 <div class="container mt-4 mb-5">
@@ -150,21 +9,21 @@
         <!-- Profile Card -->
         <div class="col-md-4 mb-4">
             <div class="card">
-                <div class="card-header text-white">
-                    <h4><i class="bi bi-person-circle me-2"></i>Profile Information</h4>
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="bi bi-person-circle me-2"></i>Profile Information</h4>
                 </div>
                 <div class="card-body text-center">
                     <div class="profile-icon">
-                        <i class="bi bi-person-fill text-white" style="font-size: 2.5rem;"></i>
+                        <i class="bi bi-person-fill" style="font-size: 2.5rem; color: var(--accent-sky);"></i>
                     </div>
-                    <h5 class="fw-bold mb-2" style="color: #4F46E5;">Dr. {{ user.first_name }} {{ user.last_name }}</h5>
-                    <span class="badge-neurologist">
+                    <h5 class="fw-bold mb-2">Dr. {{ user.first_name }} {{ user.last_name }}</h5>
+                    <span class="badge badge-success">
                         <i class="bi bi-brain me-1"></i>Neurologist
                     </span>
-                    <hr style="border-color: #E0E7FF; margin: 20px 0;">
-                    <p class="text-start mb-2"><strong><i class="bi bi-envelope-fill me-2" style="color: #6366F1;"></i>Email:</strong></p>
+                    <hr style="margin: 20px 0;">
+                    <p class="text-start mb-2"><strong><i class="bi bi-envelope-fill me-2"></i>Email:</strong></p>
                     <p class="text-muted text-start mb-3">{{ user.email }}</p>
-                    <p class="text-start mb-2"><strong><i class="bi bi-star-fill me-2" style="color: #F59E0B;"></i>Specialization:</strong></p>
+                    <p class="text-start mb-2"><strong><i class="bi bi-star-fill me-2" style="color: var(--warning-yellow);"></i>Specialization:</strong></p>
                     <p class="text-muted text-start">Brain Tumor Analysis & Neurosurgery</p>
                     <a href="{% url 'doctor_settings' %}" class="btn btn-primary w-100 mt-3">
                         <i class="bi bi-gear-fill me-2"></i>Edit Profile
@@ -176,18 +35,18 @@
         <!-- Notifications Card -->
         <div class="col-md-8 mb-4">
             <div class="card">
-                <div class="card-header text-white">
-                    <h4><i class="bi bi-bell-fill me-2"></i>Patient Requests & Notifications</h4>
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="bi bi-bell-fill me-2"></i>Patient Requests & Notifications</h4>
                 </div>
                 <div class="card-body">
                     {% if notifications %}
                     <ul class="list-group">
                         {% for notification in notifications %}
                             <li class="list-group-item d-flex align-items-start">
-                                <img src="{{ notification.image.image.url }}" alt="MRI Scan">
+                                <img src="{{ notification.image.image.url }}" alt="MRI Scan" style="margin-right: 20px; width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">
                                 <div class="notification-details flex-grow-1">
                                     <p class="notification-message">
-                                        <strong><i class="bi bi-person-badge me-1" style="color: #6366F1;"></i>Patient Name:</strong> 
+                                        <strong><i class="bi bi-person-badge me-1"></i>Patient Name:</strong> 
                                         {{ notification.patient.first_name }} {{ notification.patient.last_name }}
                                     </p>
                                     <p class="notification-prediction">
@@ -195,7 +54,7 @@
                                         {{ notification.image.disease_predict }}
                                     </p>
                                     <p class="notification-message">
-                                        <strong><i class="bi bi-chat-left-text me-1" style="color: #6366F1;"></i>Message:</strong> 
+                                        <strong><i class="bi bi-chat-left-text me-1"></i>Message:</strong> 
                                         {{ notification.message }}
                                     </p>
                                     
@@ -205,7 +64,7 @@
                                     </button>
 
                                     <!-- Hidden Respond Form -->
-                                    <div class="respond-form" id="respond-form-{{ notification.id }}">
+                                    <div class="respond-form" id="respond-form-{{ notification.id }}" style="display: none; margin-top: 15px; padding: 20px; background: var(--light-bg); border-radius: 8px; border: 2px solid var(--accent-sky);">
                                         <form method="POST" action="{% url 'respond_request' notification.id %}">
                                             {% csrf_token %}
                                             <div class="form-group">
@@ -230,7 +89,7 @@
                     </ul>
                     {% else %}
                     <div class="text-center py-5">
-                        <i class="bi bi-inbox" style="font-size: 4rem; color: #D1D5DB;"></i>
+                        <i class="bi bi-inbox" style="font-size: 4rem; color: var(--gray-300);"></i>
                         <p class="text-muted mt-3 mb-0">No new notifications at the moment.</p>
                     </div>
                     {% endif %}
@@ -239,6 +98,44 @@
         </div>
     </div>
 </div>
+
+<style>
+    .list-group-item {
+        border: none;
+        padding: 20px;
+        background-color: var(--white);
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.2s ease;
+        border-left: 4px solid var(--success-green);
+    }
+
+    .list-group-item:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateX(2px);
+    }
+
+    .notification-message {
+        margin-bottom: 8px;
+        color: var(--gray-700);
+        font-size: 1rem;
+    }
+
+    .notification-prediction {
+        color: var(--primary-blue);
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .respond-form {
+        display: none;
+    }
+
+    body {
+        background-color: var(--dark-bg);
+    }
+</style>
 
 <script>
     function toggleRespondForm(notificationId) {
@@ -250,6 +147,5 @@
         }
     }
 </script>
-
 {% include 'common/footer.html' %}
 {% endblock %}

@@ -6,7 +6,7 @@
 
 <style>
     body {
-        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        background: linear-gradient(135deg, #F0F9FF 0%, #F0FDF4 100%);
         min-height: 100vh;
     }
     
@@ -17,24 +17,24 @@
     
     .card {
         border-radius: 16px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         border: none;
     }
     
     .form-control {
-        border: 2px solid #E0E7FF;
+        border: 2px solid #BAE6FD;
         border-radius: 8px;
         padding: 15px;
         font-size: 1rem;
     }
     
     .form-control:focus {
-        border-color: #6366F1;
-        box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
+        border-color: #1E40AF;
+        box-shadow: 0 0 0 0.2rem rgba(30, 64, 175, 0.1);
     }
     
     .btn-primary {
-        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        background: linear-gradient(135deg, #1E40AF 0%, #0D9488 100%);
         border: none;
         padding: 12px 40px;
         font-weight: 600;
@@ -42,9 +42,9 @@
     }
     
     .btn-primary:hover {
-        background: linear-gradient(135deg, #5568D3 0%, #6B3FA0 100%);
+        background: linear-gradient(135deg, #1E3A8A 0%, #0F766E 100%);
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
     }
 </style>
 
@@ -52,8 +52,8 @@
     <div class="card">
         <div class="card-body p-5">
             <div class="text-center mb-4">
-                <i class="bi bi-pencil-square" style="font-size: 3rem; color: #6366F1;"></i>
-                <h1 class="mt-3 fw-bold" style="color: #1e1b4b;">Edit Recommendation</h1>
+                <i class="bi bi-pencil-square" style="font-size: 3rem; color: #1E40AF;"></i>
+                <h1 class="mt-3 fw-bold" style="color: #1E40AF;">Edit Recommendation</h1>
                 <p class="text-muted">Update your medical recommendation</p>
             </div>
             
@@ -61,7 +61,7 @@
                 {% csrf_token %}
                 <div class="form-group mb-4">
                     <label for="comments" class="fw-semibold mb-2" style="color: #374151;">
-                        <i class="bi bi-chat-left-text me-2" style="color: #6366F1;"></i>Recommendation Details
+                        <i class="bi bi-chat-left-text me-2" style="color: #1E40AF;"></i>Recommendation Details
                     </label>
                     <textarea name="comments" id="comments" rows="8" class="form-control" placeholder="Enter your updated medical recommendation...">{{ recommendation.comments }}</textarea>
                 </div>
