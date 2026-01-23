@@ -179,8 +179,17 @@ def book_appointment(request):
 def see_appointments(request):
     return render(request, 'doctor/appointments.html')
 
+@login_required
 def doctor_settings(request):
-    return render(request, 'common/settings.html')
+    try:
+        doctor_profile = DoctorProfile.objects.get(user=request.user)
+    except DoctorProfile.DoesNotExist:
+        doctor_profile = None
+    
+    context = {
+        'doctor_profile': doctor_profile
+    }
+    return render(request, 'doctor/doctor_settings.html', context)
 
     
 
