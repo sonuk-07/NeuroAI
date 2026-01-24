@@ -67,7 +67,9 @@ def request_recommendation(request, image_id):
                 messages.error(request, 'No doctor available.')
         except DoctorProfile.DoesNotExist:
             messages.error(request, 'Unable to find doctor.')
-    return redirect('history')
+    
+    uploaded_images = ImageUpload.objects.filter(user=request.user).order_by('-uploaded_at')
+    return render(request, 'patient/history.html', {'uploaded_images': uploaded_images})
 
 @login_required
 def respond_request(request, request_id):
@@ -79,7 +81,9 @@ def respond_request(request, request_id):
         rec_request.is_reviewed = True
         rec_request.save()
         messages.success(request, 'Recommendation sent.')
-        return redirect('doctor_dashboard')
+        doctor = request.user.doctorprofile
+        recommendations = RecommendationRequest.objects.filter(doctor=doctor).order_by('-created_at')
+        return render(request, 'doctor/doctor_recommendation_history.html', {'recommendations': recommendations})
     return render(request, 'doctor/respond_request.html', {'request': rec_request})
 
 @login_required
@@ -91,7 +95,9 @@ def edit_recommendation(request, recommendation_id):
         rec.is_reviewed = True
         rec.save()
         messages.success(request, 'Recommendation updated.')
-        return redirect('recommendation_history')
+        doctor = request.user.doctorprofile
+        recommendations = RecommendationRequest.objects.filter(doctor=doctor).order_by('-created_at')
+        return render(request, 'doctor/doctor_recommendation_history.html', {'recommendations': recommendations})
     return render(request, 'doctor/edit_recommendation.html', {'recommendation': rec})
 
 @login_required
@@ -106,9 +112,9 @@ def delete_recommendation(request, recommendation_id):
     if request.method == 'POST':
         rec.delete()
         messages.success(request, 'Recommendation deleted.')
-        return redirect('recommendation_history')
-    return render(request, 'doctor/doctor_recommendation_history.html', 
-                  {'recommendations': RecommendationRequest.objects.filter(doctor__user=request.user)})
+    doctor = request.user.doctorprofile
+    recommendations = RecommendationRequest.objects.filter(doctor=doctor).order_by('-created_at')
+    return render(request, 'doctor/doctor_recommendation_history.html', {'recommendations': recommendations})
 
 @login_required
 def delete_image(request, image_id):
@@ -116,7 +122,8 @@ def delete_image(request, image_id):
     if request.method == 'POST':
         image.delete()
         messages.success(request, 'Image deleted.')
-        return redirect('history')
+    uploaded_images = ImageUpload.objects.filter(user=request.user).order_by('-uploaded_at')
+    return render(request, 'patient/history.html', {'uploaded_images': uploaded_images})
 
 
 def predict_disease(image_path):
@@ -173,4 +180,6 @@ def predict_disease(image_path):
 def delete_all_images(request):
     if request.method == 'POST':
         ImageUpload.objects.all().delete()
-    return redirect('history')
+        messages.success(request, 'All images deleted.')
+    uploaded_images = ImageUpload.objects.filter(user=request.user).order_by('-uploaded_at')
+    return render(request, 'patient/history.html', {'uploaded_images': uploaded_images})

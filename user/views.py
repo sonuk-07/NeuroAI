@@ -43,25 +43,20 @@ def update_username(request):
         
         user = request.user
 
-        # Check if the new username matches the confirmation
         if new_username and new_username == confirm_username:
             old_username = user.username
             user.username = new_username
             user.save()
-
-            # Send an email notification
             send_mail(
                 'Username Changed',
                 f'Your username has been changed from {old_username} to {new_username}.',
-                'nayanai.innovate@gmail.com',  # Replace with your sender email
-                [user.email],  # Send to the user's registered email
+                'nayanai.innovate@gmail.com',
+                [user.email],
                 fail_silently=False,
             )
-
+            messages.success(request, 'Username updated successfully.')
         else:
             messages.error(request, "Usernames do not match")
-        
-        return redirect('settings')
     
     return render(request, 'common/settings.html')
 
@@ -76,28 +71,22 @@ def update_password(request):
 
         if not user.check_password(current_password):
             messages.error(request, "Current password is incorrect")
-            return redirect('settings')
-
-        if new_password and new_password == confirm_password:
+        elif new_password and new_password == confirm_password:
             user.set_password(new_password)
             user.save()
-            
-            # Update the session to prevent logout after password change
             update_session_auth_hash(request, user)
-            
-            # Send an email notification
             send_mail(
                 'Password Changed',
                 'Your password has been changed successfully.',
-                'nayanai.innovate@gmail.com',  # Replace with your sender email
-                [user.email],  # Send to the user's registered email
+                'nayanai.innovate@gmail.com',
+                [user.email],
                 fail_silently=False,
             )
             messages.success(request, "Password updated successfully")
         elif new_password and new_password != confirm_password:
             messages.error(request, "New passwords do not match")
         
-        return redirect('settings')
+        return render(request, 'common/settings.html')
     
     return render(request, 'common/settings.html')
 
@@ -112,9 +101,7 @@ def update_name(request):
         user.first_name = first_name
         user.last_name = last_name
         user.save()
-
         messages.success(request, 'Name updated successfully.')
-        return redirect('settings')
 
     return render(request, 'common/settings.html')
 
@@ -131,12 +118,9 @@ def update_email(request):
 
         if current_email != user.email:
             messages.error(request, "Current email is incorrect")
-            return redirect('settings')
-
-        if new_email and new_email == confirm_email:
+        elif new_email and new_email == confirm_email:
             user.email = new_email
             user.save()
-
             send_mail(
                 'Email Changed',
                 'Your email has been changed successfully.',
@@ -148,7 +132,7 @@ def update_email(request):
         elif new_email and new_email != confirm_email:
             messages.error(request, "New emails do not match")
         
-        return redirect('settings')
+        return render(request, 'common/settings.html')
     
     return render(request, 'common/settings.html')
 @login_required
