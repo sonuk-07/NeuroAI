@@ -6,6 +6,10 @@ from .models import ImageUpload, RecommendationRequest
 from accounts.models import DoctorProfile
 from django.core.mail import send_mail  # For sending email recommendations
 
+# Import only if needed
+import os
+from pathlib import Path
+
 # Function to upload an image and predict the disease
 @login_required
 def upload_image(request):
@@ -16,8 +20,13 @@ def upload_image(request):
             try:
                 image_upload = form.save(commit=False)
                 image_upload.user = request.user  # Link to the current user
-                image_upload.disease_predict = predict_disease(image_upload.image.path)  # Prediction function
-                image_upload.save()
+                image_upload.save()  # Save first so image is stored on disk
+                
+                # Now predict using the saved image path
+                image_path = image_upload.image.path
+                image_upload.disease_predict = predict_disease(image_path)
+                image_upload.save()  # Save prediction
+                
                 messages.success(request, 'Image uploaded and prediction saved successfully.')
                 
                 # Set the detection_result to show on the same page
@@ -25,6 +34,8 @@ def upload_image(request):
 
             except Exception as e:
                 messages.error(request, f"An error occurred: {str(e)}")
+                import traceback
+                traceback.print_exc()  # Print full error for debugging
     else:
         form = ImageUploadForm()
 
@@ -156,17 +167,70 @@ def delete_image(request, image_id):
         return redirect('history')
 
 
-# Dummy function for disease prediction
 def predict_disease(image_path):
-    # Load and predict using your deep learning model here
-    return "Cataract"  # Example result
-
-
-
-# Dummy function for disease prediction
-def predict_disease(image_path):
-    # Load and predict using your deep learning model here
-    return "Cataract"  # Example result
+    """
+    Predict brain tumor class from MRI image using trained ResNet50 model
+    Returns one of: 'glioma', 'meningioma', 'notumor', 'pituitary'
+    """
+    try:
+        # Import ML dependencies (lazy import)
+        import torch
+        import cv2
+        import albumentations as A
+        from albumentations.pytorch import ToTensorV2
+        
+        # Define constants
+        CLASS_NAMES = ['glioma', 'meningioma', 'notumor', 'pituitary']
+        IMG_SIZE = 224
+        
+        # Get device
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        
+        # Define the SAME transform used in training/validation
+        # This must match exactly what was used in the notebook
+        val_test_transform = A.Compose([
+            A.Resize(IMG_SIZE, IMG_SIZE),
+            A.Normalize(mean=[0.4815, 0.4815, 0.4815], 
+                       std=[0.2235, 0.2235, 0.2235]),
+            ToTensorV2(),
+        ])
+        
+        # Load model
+        model_path = Path(__file__).parent.parent / 'models' / 'brain_resnet50.pt'
+        
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"Model not found at {model_path}")
+        
+        # Load TorchScript model
+        model = torch.jit.load(str(model_path), map_location=device)
+        model.eval()
+        
+        # Read image
+        img_bgr = cv2.imread(image_path)
+        if img_bgr is None:
+            raise FileNotFoundError(f"Image not found: {image_path}")
+        
+        # Apply the transform (albumentations expects BGR for cv2.imread)
+        transformed = val_test_transform(image=img_bgr)
+        img_tensor = transformed['image'].unsqueeze(0).to(device)
+        
+        # Make prediction
+        with torch.no_grad():
+            output = model(img_tensor)
+            prob = torch.softmax(output, dim=1)
+            pred_class = torch.argmax(prob, dim=1).item()
+            confidence = prob[0][pred_class].item() * 100
+        
+        # Return predicted class name
+        predicted_class = CLASS_NAMES[pred_class]
+        
+        return predicted_class
+        
+    except Exception as e:
+        print(f"Prediction error: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return "Error in prediction"
 
 from django.shortcuts import redirect
 from .models import ImageUpload  # Adjust the import according to your model
