@@ -3,11 +3,7 @@ from django.contrib.auth.models import User
 from accounts.models import DoctorProfile
 
 class ImageUpload(models.Model):
-    STATUS_CHOICES = [
-        ('none', 'None'),
-        ('requested', 'Requested'),
-        ('reviewed', 'Reviewed'),
-    ]
+    STATUS_CHOICES = [('none', 'None'), ('requested', 'Requested'), ('reviewed', 'Reviewed')]
     image = models.ImageField(upload_to='uploads/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     disease_predict = models.CharField(max_length=100, blank=True, null=True)
@@ -17,7 +13,6 @@ class ImageUpload(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.disease_predict}"
-
 
 class RecommendationRequest(models.Model):
     image = models.ForeignKey(ImageUpload, on_delete=models.CASCADE)
@@ -29,9 +24,4 @@ class RecommendationRequest(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Recommendation Request from {self.patient.username} to Dr. {self.doctor.user.username}"
-    
-    def mark_as_reviewed(self):
-        """Mark this recommendation request as reviewed"""
-        self.is_reviewed = True
-        self.save()
+        return f"Recommendation {self.patient.username} → {self.doctor.user.username}"

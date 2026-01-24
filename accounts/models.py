@@ -1,7 +1,4 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.contrib.auth.models import User
 import random
 import string
@@ -14,16 +11,16 @@ class DoctorProfile(models.Model):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
 
     def __str__(self):
-        return f"Doctor Profile for {self.user.username}"
+        return f"Dr. {self.user.username}"
 
 class PatientProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    doctor = models.ForeignKey('DoctorProfile', null=True, blank=True, on_delete=models.SET_NULL)
+    doctor = models.ForeignKey(DoctorProfile, null=True, blank=True, on_delete=models.SET_NULL)
     phone_number = models.CharField(max_length=15)
     dob = models.DateField(default=date.today)
 
     def __str__(self):
-        return f"Patient Profile for {self.user.username}"
+        return f"{self.user.username}"
 
 class OTP(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -35,6 +32,4 @@ class OTP(models.Model):
         self.save()
 
     def is_valid(self):
-        # Check if OTP is valid for 10 minutes
         return timezone.now() - self.created_at <= timedelta(minutes=10)
-
