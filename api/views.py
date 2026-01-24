@@ -169,25 +169,27 @@ def delete_image(request, image_id):
 
 def predict_disease(image_path):
     """
-    Predict brain tumor class from MRI image using trained ResNet50 model
+    Predict brain tumor class from MRI image using trained DenseNet121 model.
+    Updated to match latest notebook with new dataset and preprocessing.
     Returns one of: 'glioma', 'meningioma', 'notumor', 'pituitary'
     """
     try:
         # Import ML dependencies (lazy import)
         import torch
         import cv2
+        import numpy as np
         import albumentations as A
         from albumentations.pytorch import ToTensorV2
         
-        # Define constants
+        # Define constants (MUST match notebook exactly)
         CLASS_NAMES = ['glioma', 'meningioma', 'notumor', 'pituitary']
         IMG_SIZE = 224
         
         # Get device
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
-        # Define the SAME transform used in training/validation
-        # This must match exactly what was used in the notebook
+        # ==================== DEFINE TRANSFORM (MUST MATCH NOTEBOOK) ====================
+        # This is the exact transform from the notebook - validation/test pipeline
         val_test_transform = A.Compose([
             A.Resize(IMG_SIZE, IMG_SIZE),
             A.Normalize(mean=[0.4815, 0.4815, 0.4815], 
@@ -201,33 +203,57 @@ def predict_disease(image_path):
         if not os.path.exists(model_path):
             raise FileNotFoundError(f"Model not found at {model_path}")
         
-        # Load TorchScript model
+        # Load TorchScript model (DenseNet121)
         model = torch.jit.load(str(model_path), map_location=device)
         model.eval()
         
-        # Read image
+        # ==================== READ AND PREPROCESS IMAGE ====================
         img_bgr = cv2.imread(image_path)
         if img_bgr is None:
             raise FileNotFoundError(f"Image not found: {image_path}")
         
-        # Apply the transform (albumentations expects BGR for cv2.imread)
+        # Convert to grayscale if RGB (training data is grayscale MRI)
+        if len(img_bgr.shape) == 3 and img_bgr.shape[2] == 3:
+            img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
+            img_bgr = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR)
+        
+        # Apply histogram equalization (CLAHE) for better contrast on internet images
+        img_gray_temp = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+        img_gray_equalized = clahe.apply(img_gray_temp)
+        img_bgr = cv2.cvtColor(img_gray_equalized, cv2.COLOR_GRAY2BGR)
+        
+        # ==================== APPLY TRANSFORM ====================
+        # Apply the exact transform from notebook
         transformed = val_test_transform(image=img_bgr)
         img_tensor = transformed['image'].unsqueeze(0).to(device)
         
-        # Make prediction
+        # ==================== MAKE PREDICTION ====================
         with torch.no_grad():
             output = model(img_tensor)
             prob = torch.softmax(output, dim=1)
             pred_class = torch.argmax(prob, dim=1).item()
             confidence = prob[0][pred_class].item() * 100
         
-        # Return predicted class name
+        # Get predicted class name
         predicted_class = CLASS_NAMES[pred_class]
+        
+        # ==================== CONFIDENCE FILTERING ====================
+        # If confidence is too low, warn that it might not be a valid brain MRI
+        if confidence < 50:
+            print(f"⚠️  WARNING: Low confidence prediction ({confidence:.1f}%)")
+            print(f"   This might not be a valid brain MRI scan")
+            return f"{predicted_class} (Low confidence - may not be valid MRI)"
+        
+        # ==================== DEBUG OUTPUT ====================
+        print(f"✅ Prediction: {predicted_class} ({confidence:.1f}% confidence)")
+        all_probs = [(CLASS_NAMES[i], prob[0][i].item()*100) for i in range(4)]
+        print(f"   All probabilities: {all_probs}")
         
         return predicted_class
         
     except Exception as e:
-        print(f"Prediction error: {str(e)}")
+        print(f"❌ Prediction error: {str(e)}")
         import traceback
         traceback.print_exc()
         return "Error in prediction"
